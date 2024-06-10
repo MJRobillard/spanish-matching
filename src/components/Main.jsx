@@ -10,14 +10,6 @@ const total = (englishSpanish[0].length);
 
 export default function Main() {
   const [squares, setSquare] = useState(randomNumber());
-
-    
-          
-            
-    
-
-          
-          Expand Down
     
     
   
