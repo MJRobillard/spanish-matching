@@ -15,12 +15,10 @@ export default function Combo(props) {
     return x - Math.floor(x);
   }
   function getRandomBinary() {
-    const randomValue = seededRandom(props.number);
-    return randomValue < 0.5 ? 0 : 1;
+    return Math.round(Math.random());
   }
   // Assuming `data` variable in your code is `props`
-  console.log(englishSpanish[0][props.selectedNo]);
-  console.log(englishSpanish[1][props.number]);
+
 
 
   return (
