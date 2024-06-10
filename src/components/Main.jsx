@@ -10,6 +10,17 @@ const total = (englishSpanish[0].length);
 
 export default function Main() {
   const [squares, setSquare] = useState(randomNumber());
+
+    
+          
+            
+    
+
+          
+          Expand Down
+    
+    
+  
   const [selectedNo, setSelectedNo] = useState(Math.ceil(Math.random() * total));
   const [won, setWon] = useState(false);
   const [start, setStart] = useState(false);
@@ -18,9 +29,7 @@ export default function Main() {
     JSON.parse(localStorage.getItem("matching-game") || "[]")
   );
   const [squareStyles, setSquareStyles] = useState("numbers");
-
   const [autoWin, setAutoWin] = useState(false);
-
   const date = new Date();
   const formattedDate = date.toLocaleString("en-US", {
     month: "numeric",
@@ -29,7 +38,6 @@ export default function Main() {
     minute: "numeric",
     hour12: false,
   });
-
   function randomNumber() {
     let newSquares = [];
     for (let index = 0; index < 9; index++) {
@@ -62,11 +70,9 @@ export default function Main() {
     const random_num = Math.floor(Math.random() * enabledNumbers.length)
     setSelectedNo(enabledNumbers[random_num].number)
   }
-
   useEffect(() => {
     const checkWin = squares.every((data) => data.isEnabled);
     const remainingFalse = squares.filter((data) => !data.isEnabled);
-
     if (
       remainingFalse.length === 1 &&
       autoWin &&
@@ -94,7 +100,6 @@ export default function Main() {
       }
     }
   }, [squares]);
-
   function resetAll() {
     setSquare(randomNumber());
     setSelectedNo(Math.ceil(Math.random() * total));
@@ -102,7 +107,6 @@ export default function Main() {
     setStart(false);
     setCount(0);
   }
-
   function randomizeSquares() {
     setSquare((oldData) => {
       return oldData.map((data) => {
@@ -113,21 +117,17 @@ export default function Main() {
       });
     });
   }
-
   function toggleAuto() {
     setAutoWin((oldData) => !oldData);
   }
-
   function handleStyles(event){
     setSquareStyles(event.target.value)
   }
-
   useEffect(() => {
     window.addEventListener("keydown", (event) => {
       event.key === "r" && randomizeSquares();
     });
   }, []);
-
   return (
     <div className="flex flex-col gap-2 items-center">
       <div className="relative flex flex-col gap-2 items-center">
@@ -161,7 +161,6 @@ export default function Main() {
               autoWin ? "border-emerald-500" : "border-white"
             } border rounded-md p-2`}
           >
-
             {squares.map((data) => {
               return (
                 <Square
@@ -177,7 +176,6 @@ export default function Main() {
             })}
           </div>
         )}
-
         <Combo
           style={squareStyles}
           count={count}
@@ -206,9 +204,9 @@ export default function Main() {
           value={squareStyles}
           className="w-full sm:w-48 border bg-zinc-700 py-1 px-2 rounded-sm border-zinc-600 hover:bg-zinc-600 focus:border focus:border-zinc-500 text-white"
         >
-          <input>English</input>
-          <input>Spanish</input>
-
+          <option value="numbers">Numbers 1️⃣</option>
+          <option value="emojis">Emojis 🗿</option>
+          <option value="letters">Letters 🅰️</option>
         </select>
       </div>
     </div>
