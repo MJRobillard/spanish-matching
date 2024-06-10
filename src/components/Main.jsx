@@ -6,7 +6,7 @@ import { nanoid } from "nanoid";
 import englishSpanish from "./data/spanish_dic";
 
 
-const total = 9;
+const total = length(englishSpanish[0]);
 
 export default function Main() {
   const [squares, setSquare] = useState(randomNumber());
