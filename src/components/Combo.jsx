@@ -16,7 +16,7 @@ export default function Combo(props) {
   }
   function getRandomBinary(select) {
     console.log(select);
-    return  (select % 2);
+    return 0;
   }
   // Assuming `data` variable in your code is `props`
 

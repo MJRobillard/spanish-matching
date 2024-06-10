@@ -37,7 +37,7 @@ export default function Square(props) {
       onClick={props.handleToggle}
       className={`${styles} ${roundedClass} h-24 w-24 sm:h-32 sm:w-32 flex items-center justify-center text-1xl sm:text-2xl text-white cursor-pointer`}
     >
-      {englishSpanish[getRandomBinary()][props.number]}
+      {englishSpanish[1][props.number]}
     </div>
   );
 }
