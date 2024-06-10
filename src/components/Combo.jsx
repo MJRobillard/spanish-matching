@@ -14,8 +14,9 @@ export default function Combo(props) {
     let x = Math.sin(seed) * 10000;
     return x - Math.floor(x);
   }
-  function getRandomBinary() {
-    return Math.round(Math.random());
+  function getRandomBinary(select) {
+    console.log(select);
+    return  (select % 2);
   }
   // Assuming `data` variable in your code is `props`
 
@@ -48,7 +49,7 @@ export default function Combo(props) {
 
       <div className="h-[76%] flex items-center justify-center bg-zinc-2 bg-opacity-5">
         <div className=" text-white text-2xl">
-          {englishSpanish[getRandomBinary()][props.selectedNo]}
+          {englishSpanish[getRandomBinary(props.selectedNo)][props.selectedNo]}
 
         </div>
       </div>
