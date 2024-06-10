@@ -5,9 +5,6 @@ import Square from "./Square";
 import { nanoid } from "nanoid";
 import englishSpanish from "./data/spanish_dic";
 
-
-const total = (englishSpanish[0].length);
-
 export default function Main() {
   const [squares, setSquare] = useState(randomNumber());
   const [selectedNo, setSelectedNo] = useState(Math.ceil(Math.random() * total));
@@ -29,6 +26,8 @@ export default function Main() {
     minute: "numeric",
     hour12: false,
   });
+
+  const total = Math.max(englishSpanish[0].length, englishSpanish[1].length);
 
   function randomNumber() {
     let newSquares = [];
@@ -55,10 +54,8 @@ export default function Main() {
         };
       });
     });
-  
-    // Reset the word to match without resetting the grid
+
     const enabledNumbers = squares.filter((data) => !data.isEnabled);
-    console.log(enabledNumbers,'look;');
     const random_num = Math.floor(Math.random() * enabledNumbers.length)
     setSelectedNo(enabledNumbers[random_num].number)
   }
@@ -118,8 +115,22 @@ export default function Main() {
     setAutoWin((oldData) => !oldData);
   }
 
-  function handleStyles(event){
-    setSquareStyles(event.target.value)
+  function handleStyles(event) {
+    const { name, value } = event.target;
+    setSquareStyles(value);
+
+    if (name === "english" || name === "spanish") {
+      const newWord = prompt(`Enter new word in ${name === "english" ? "English" : "Spanish"}`);
+      if (newWord) {
+        if (name === "english") {
+          englishSpanish[0].push(newWord);
+        } else {
+          englishSpanish[1].push(newWord);
+        }
+        const newTotal = Math.max(englishSpanish[0].length, englishSpanish[1].length);
+        setTotal(newTotal);
+      }
+    }
   }
 
   useEffect(() => {
@@ -157,9 +168,8 @@ export default function Main() {
           </div>
         ) : (
           <div
-            className={`grid grid-cols-3 gap-2 ${
-              autoWin ? "border-emerald-500" : "border-white"
-            } border rounded-md p-2`}
+            className={`grid grid-cols-3 gap-2 ${autoWin ? "border-emerald-500" : "border-white"
+              } border rounded-md p-2`}
           >
 
             {squares.map((data) => {
@@ -198,7 +208,8 @@ export default function Main() {
           onClick={randomizeSquares}
           className="bg-zinc-700 w-full sm:w-72 border py-1 rounded-sm border-zinc-600 hover:bg-zinc-600 focus:border focus:border-zinc-500 text-white"
         >
-          Roll <span className="text-[10px]">(or press R)</span>
+          Roll <span className="text-[10
+px]">(or press R)</span>
         </button>
         <select
           onChange={handleStyles}
@@ -209,7 +220,27 @@ export default function Main() {
           <option value="numbers">Numbers 1️⃣</option>
           <option value="emojis">Emojis 🗿</option>
           <option value="letters">Letters 🅰️</option>
+          <option value="english">English</option>
+          <option value="spanish">Spanish</option>
         </select>
+        {squareStyles === "english" && (
+          <input
+            type="text"
+            name="english"
+            placeholder="Add new English word"
+            className="w-full sm:w-48 border bg-zinc-700 py-1 px-2 rounded-sm border-zinc-600 hover:bg-zinc-600 focus:border focus:border-zinc-500 text-white"
+            onChange={handleStyles}
+          />
+        )}
+        {squareStyles === "spanish" && (
+          <input
+            type="text"
+            name="spanish"
+            placeholder="Add new Spanish word"
+            className="w-full sm:w-48 border bg-zinc-700 py-1 px-2 rounded-sm border-zinc-600 hover:bg-zinc-600 focus:border focus:border-zinc-500 text-white"
+            onChange={handleStyles}
+          />
+        )}
       </div>
     </div>
   );
